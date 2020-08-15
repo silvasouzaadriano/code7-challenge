@@ -1,0 +1,10 @@
+node_modules
+.env
+
+!temp/uploads/.gitkeep
+!temp/uploads/example
+build/
+temp/
+
+dist
+api/__tests__/database.sqlite
