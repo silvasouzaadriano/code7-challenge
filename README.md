@@ -52,14 +52,14 @@ $ cd code7-challenger/api
 # Install dependencies
 $ yarn install OR npm run install
 
-# Created Postgree Docker container
+# Created Postgres Docker container and the database code7
 $ docker run --name code7_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=code7 -p 5432:5432 -d postgres
 
-# .env
-$ Replace the .env.EXAMPLE to .env
+# Run the Migrations for create the tables
+yarn typeorm migration:run OR npx typeorm migration:run
 
 # Run the API
-$ yarn dev OR npm run dev
+$ yarn start OR npm run start
 ```
 
 ### Install Frontend

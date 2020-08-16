@@ -1,18 +1,8 @@
 import { Router } from 'express';
+import debitsRouter from './debits.routes';
 
 const routes = Router();
 
-routes.get('/', (request, response) => response.json({ message: 'Hello World' }));
-
-routes.post('/users', (request, response) => {
-  const { name, email } = request.body;
-
-  const user = {
-    name,
-    email,
-  };
-
-  return response.json(user);
-});
+routes.use('/debits', debitsRouter);
 
 export default routes;
