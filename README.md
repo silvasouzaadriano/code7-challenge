@@ -53,7 +53,7 @@ $ cd code7-challenger/api
 $ yarn install OR npm run install
 
 # Created Postgree Docker container
-$ docker run --name code7_database -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=code7 -p 5432:5432 -d postgres
+$ docker run --name code7_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=code7 -p 5432:5432 -d postgres
 
 # .env
 $ Replace the .env.EXAMPLE to .env
