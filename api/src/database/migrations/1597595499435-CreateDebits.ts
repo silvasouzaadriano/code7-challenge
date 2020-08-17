@@ -11,6 +11,7 @@ export default class CreateDebits1597595499435 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'client_id',
