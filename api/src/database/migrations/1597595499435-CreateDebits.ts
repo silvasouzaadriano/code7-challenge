@@ -8,7 +8,7 @@ export default class CreateDebits1597595499435 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'varchar',
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
@@ -16,24 +16,30 @@ export default class CreateDebits1597595499435 implements MigrationInterface {
           {
             name: 'client_id',
             type: 'numeric',
-            isNullable: false,
           },
           {
             name: 'reason',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'date',
             type: 'timestamp with time zone',
-            isNullable: false,
           },
           {
             name: 'amount',
             type: 'numeric',
             precision: 10,
             scale: 2,
-            isNullable: false,
+          },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
           },
         ],
       }),

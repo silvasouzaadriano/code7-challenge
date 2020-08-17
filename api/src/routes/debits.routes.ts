@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
-// import Debit from '../models/Debit';
 import DebitsRepository from '../repositories/DebitsRepository';
 import CreateDebitService from '../services/CreateDebitService';
+import UpdateDebitService from '../services/UpdateDebitService';
 
 const debitsRouter = Router();
 
@@ -15,22 +15,34 @@ debitsRouter.get('/', async (request, response) => {
 });
 
 debitsRouter.post('/', async (request, response) => {
-  try {
-    const { client_id, reason, date, amount } = request.body;
+  const { client_id, reason, date, amount } = request.body;
 
-    const createDebit = new CreateDebitService();
+  const createDebit = new CreateDebitService();
 
-    const debit = await createDebit.execute({
-      client_id,
-      reason,
-      date,
-      amount,
-    });
+  const debit = await createDebit.execute({
+    client_id,
+    reason,
+    date,
+    amount,
+  });
 
-    return response.json(debit);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  return response.json(debit);
+});
+
+debitsRouter.put('/:id', async (request, response) => {
+  const { id } = request.params;
+  const { reason, date, amount } = request.body;
+
+  const updateDebit = new UpdateDebitService();
+
+  const debit = await updateDebit.execute({
+    id,
+    reason,
+    date,
+    amount,
+  });
+
+  return response.json(debit);
 });
 
 export default debitsRouter;
