@@ -10,6 +10,8 @@ interface RequestDTO {
 }
 
 class CreateDebitService {
+  // constructor(private debitsRepository: IDebitsRepository) {}
+
   public async execute({
     client_id,
     reason,
@@ -18,14 +20,13 @@ class CreateDebitService {
   }: RequestDTO): Promise<Debit> {
     const debitsRepository = getCustomRepository(DebitsRepository);
 
-    const debit = debitsRepository.create({
+    // const debit = await this.debitsRepository.create({
+    const debit = await debitsRepository.create({
       client_id,
       reason,
       date,
       amount,
     });
-
-    await debitsRepository.save(debit);
 
     return debit;
   }
