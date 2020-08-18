@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import Debit from '../models/Debit';
+import Debit from '@modules/debits/infra/typeorm/entities/Debit';
 
 @EntityRepository(Debit)
 class DebitRepository extends Repository<Debit> {}

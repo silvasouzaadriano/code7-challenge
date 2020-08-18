@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
-import Debit from '../models/Debit';
-import DebitsRepository from '../repositories/DebitsRepository';
+import DebitsRepository from '../infra/typeorm/repositories/DebitsRepository';
+import Debit from '../infra/typeorm/entities/Debit';
 
 interface RequestDTO {
   client_id: number;

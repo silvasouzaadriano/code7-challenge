@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
-import DebitsRepository from '../repositories/DebitsRepository';
-import CreateDebitService from '../services/CreateDebitService';
-import UpdateDebitService from '../services/UpdateDebitService';
+import DebitsRepository from '@modules/debits/infra/typeorm/repositories/DebitsRepository';
+import CreateDebitService from '@modules/debits/services/CreateDebitService';
+import UpdateDebitService from '@modules/debits/services/UpdateDebitService';
 
 const debitsRouter = Router();
 
