@@ -1,8 +1,7 @@
-import { getCustomRepository } from 'typeorm';
-import DebitsRepository from '../infra/typeorm/repositories/DebitsRepository';
+import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import Debit from '../infra/typeorm/entities/Debit';
 
-interface RequestDTO {
+interface Request {
   id: string;
   client_id: number;
   reason: string;
@@ -11,16 +10,16 @@ interface RequestDTO {
 }
 
 class UpdateDebitService {
+  constructor(private debitsRepository: IDebitsRepository) {}
+
   public async execute({
     id,
     client_id,
     reason,
     date,
     amount,
-  }: RequestDTO): Promise<Debit> {
-    const debitsRepository = getCustomRepository(DebitsRepository);
-
-    const debit = await debitsRepository.update({
+  }: Request): Promise<Debit> {
+    const debit = await this.debitsRepository.update({
       id,
       client_id,
       reason,

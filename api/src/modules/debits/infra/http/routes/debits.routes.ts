@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
 
 import DebitsRepository from '@modules/debits/infra/typeorm/repositories/DebitsRepository';
 import CreateDebitService from '@modules/debits/services/CreateDebitService';
@@ -7,10 +6,9 @@ import UpdateDebitService from '@modules/debits/services/UpdateDebitService';
 import DeleteDebitService from '@modules/debits/services/DeleteDebitService';
 
 const debitsRouter = Router();
-// const debitsRepository = new DebitsRepository();
 
 debitsRouter.get('/', async (request, response) => {
-  const debitsRepository = getCustomRepository(DebitsRepository);
+  const debitsRepository = new DebitsRepository();
   const debits = await debitsRepository.findAll();
 
   return response.json(debits);
@@ -18,7 +16,7 @@ debitsRouter.get('/', async (request, response) => {
 
 debitsRouter.get('/:client_id', async (request, response) => {
   const { client_id }: number = request.params;
-  const debitsRepository = getCustomRepository(DebitsRepository);
+  const debitsRepository = new DebitsRepository();
   const debits = await debitsRepository.findByClient(client_id);
 
   return response.json(debits);
@@ -27,7 +25,8 @@ debitsRouter.get('/:client_id', async (request, response) => {
 debitsRouter.post('/', async (request, response) => {
   const { client_id, reason, date, amount } = request.body;
 
-  const createDebit = new CreateDebitService();
+  const debitsRepository = new DebitsRepository();
+  const createDebit = new CreateDebitService(debitsRepository);
 
   const debit = await createDebit.execute({
     client_id,
@@ -43,7 +42,8 @@ debitsRouter.put('/:id', async (request, response) => {
   const { id } = request.params;
   const { client_id, reason, date, amount } = request.body;
 
-  const updateDebit = new UpdateDebitService();
+  const debitsRepository = new DebitsRepository();
+  const updateDebit = new UpdateDebitService(debitsRepository);
 
   const debit = await updateDebit.execute({
     id,
@@ -59,7 +59,8 @@ debitsRouter.put('/:id', async (request, response) => {
 debitsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteDebit = new DeleteDebitService();
+  const debitsRepository = new DebitsRepository();
+  const deleteDebit = new DeleteDebitService(debitsRepository);
 
   const debit = await deleteDebit.execute({
     id,

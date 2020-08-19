@@ -1,4 +1,4 @@
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import ICreateDebitDTO from '@modules/debits/dtos/ICreateDebitDTO';
 import IUpdateDebitDTO from '@modules/debits/dtos/IUpdateDebitDTO';
@@ -7,8 +7,6 @@ import IDeleteDebitDTO from '@modules/debits/dtos/IDeleteDebitDTO';
 import Debit from '@modules/debits/infra/typeorm/entities/Debit';
 import AppError from '@shared/errors/AppError';
 
-// class DebitRepository extends Repository<Debit> implements IDebitsRepository {}
-@EntityRepository(Debit)
 class DebitRepository implements IDebitsRepository {
   private ormRepository: Repository<Debit>;
 
@@ -71,6 +69,11 @@ class DebitRepository implements IDebitsRepository {
 
   public async findAll(): Promise<Debit[] | undefined> {
     const debits = await this.ormRepository.find();
+
+    /* const debits = await this.ormRepository
+      .createQueryBuilder('debits')
+      .select('sum(debits.amount)', 'debits.client_id')
+      .groupBy('debits.client_id'); */
 
     return debits;
   }
