@@ -14,7 +14,10 @@ class Debit {
   @Column('numeric')
   client_id: number;
 
-  @Column()
+  @Column('varchar')
+  client_name: string;
+
+  @Column('varchar')
   reason: string;
 
   @Column('time with time zone')

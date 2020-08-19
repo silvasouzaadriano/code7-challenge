@@ -18,6 +18,10 @@ export default class CreateDebits1597595499435 implements MigrationInterface {
             type: 'numeric',
           },
           {
+            name: 'client_name',
+            type: 'varchar',
+          },
+          {
             name: 'reason',
             type: 'varchar',
           },

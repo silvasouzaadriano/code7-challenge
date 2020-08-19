@@ -16,12 +16,14 @@ class DebitRepository implements IDebitsRepository {
 
   public async create({
     client_id,
+    client_name,
     reason,
     date,
     amount,
   }: ICreateDebitDTO): Promise<Debit> {
     const debit = this.ormRepository.create({
       client_id,
+      client_name,
       reason,
       date,
       amount,
@@ -35,6 +37,7 @@ class DebitRepository implements IDebitsRepository {
   public async update({
     id,
     client_id,
+    client_name,
     reason,
     date,
     amount,
@@ -46,6 +49,7 @@ class DebitRepository implements IDebitsRepository {
     }
 
     debit.client_id = client_id;
+    debit.client_name = client_name;
     debit.reason = reason;
     debit.date = date;
     debit.amount = amount;
@@ -68,12 +72,15 @@ class DebitRepository implements IDebitsRepository {
   }
 
   public async findAll(): Promise<Debit[] | undefined> {
-    const debits = await this.ormRepository.find();
-
-    /* const debits = await this.ormRepository
-      .createQueryBuilder('debits')
-      .select('sum(debits.amount)', 'debits.client_id')
-      .groupBy('debits.client_id'); */
+    const debits = await this.ormRepository
+      .createQueryBuilder('debit')
+      .select('debit.client_id', 'client_id')
+      .addSelect('debit.client_name', 'client_name')
+      .addSelect('SUM(debit.amount)', 'total_debits')
+      .groupBy('debit.client_id')
+      .addGroupBy('debit.client_name')
+      .addOrderBy('debit.client_name')
+      .getRawMany();
 
     return debits;
   }

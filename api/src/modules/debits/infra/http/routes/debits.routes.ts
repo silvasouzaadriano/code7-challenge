@@ -23,13 +23,14 @@ debitsRouter.get('/:client_id', async (request, response) => {
 });
 
 debitsRouter.post('/', async (request, response) => {
-  const { client_id, reason, date, amount } = request.body;
+  const { client_id, client_name, reason, date, amount } = request.body;
 
   const debitsRepository = new DebitsRepository();
   const createDebit = new CreateDebitService(debitsRepository);
 
   const debit = await createDebit.execute({
     client_id,
+    client_name,
     reason,
     date,
     amount,
@@ -40,7 +41,7 @@ debitsRouter.post('/', async (request, response) => {
 
 debitsRouter.put('/:id', async (request, response) => {
   const { id } = request.params;
-  const { client_id, reason, date, amount } = request.body;
+  const { client_id, client_name, reason, date, amount } = request.body;
 
   const debitsRepository = new DebitsRepository();
   const updateDebit = new UpdateDebitService(debitsRepository);
@@ -48,6 +49,7 @@ debitsRouter.put('/:id', async (request, response) => {
   const debit = await updateDebit.execute({
     id,
     client_id,
+    client_name,
     reason,
     date,
     amount,
