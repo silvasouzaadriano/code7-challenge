@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
 
-import logoImg from '../../assets/logo.jpg';
-
 const Header: React.FC = () => {
   return (
     <Container>
       <Link to="/">
         <div>
-          <img src={logoImg} alt="Gerenciador de Dividas" />
-          <h1>MyBooks</h1>
+          <h1>Gerenciador de Dívidas</h1>
         </div>
       </Link>
     </Container>

@@ -1,8 +1,21 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
+import AppProvider from './context';
+import Header from './components/Header';
+
+import GlobalStyle from './styles/global';
 
 const App: React.FC = () => (
   <>
-    <h1>Hello Code7</h1>
+    <>
+      <BrowserRouter>
+        <AppProvider>
+          <Header />
+        </AppProvider>
+      </BrowserRouter>
+      <GlobalStyle />
+    </>
   </>
 );
 

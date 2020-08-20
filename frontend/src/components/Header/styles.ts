@@ -4,6 +4,7 @@ import { shade } from 'polished';
 export const Container = styled.div`
   max-width: 50rem;
   display: flex;
+  justify-content: center;
   align-items: center;
 
   a {
@@ -17,13 +18,12 @@ export const Container = styled.div`
   }
 
   img {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   h1 {
-    font-size: 2rem;
-    margin-left: 1rem;
+    font-size: 1.8rem;
     color: #3a3a3a;
     line-height: 3.5rem;
 
