@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-  max-width: 50rem;
+  max-width: 65vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,6 +31,10 @@ export const Container = styled.div`
 
     &:hover {
       color: ${shade(0.2, '#04d361')};
+    }
+
+    @media (max-width: 425px) {
+      font-size: 1.4rem;
     }
   }
 `;
