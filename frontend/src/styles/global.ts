@@ -14,22 +14,17 @@ export default createGlobalStyle`
   }
 
   body, input, button, span, strong, p {
-    font: 1vw Roboto, sans-serif;
-    @media (max-width: 425px) {
-      font-size: 1.8vw;
-    }
+    font: 1rem Roboto, sans-serif;
   }
 
   #root {
-    max-width: 70vw;
+    max-width: 50rem;
     margin: 0 auto;
-    padding: 20px 10px;
+    padding: 1.25rem 0.625rem;
   }
 
   button {
     cursor: pointer;
   }
-
-
 
 `;
