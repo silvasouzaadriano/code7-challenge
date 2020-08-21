@@ -21,9 +21,8 @@ const Dashboard: React.FC = () => {
   const { addToast } = useToast();
 
   // This function get all debits grouped by client_id, client_name with sum of amount
-  const getdebits = useCallback(async () => {
+  const getDebits = useCallback(async () => {
     try {
-      // const debitsList: Debit[] = [];
       api.get('/debits').then((response) => {
         const data = response.data.map((d: Debit[]) => ({
           ...d,
@@ -42,8 +41,8 @@ const Dashboard: React.FC = () => {
   }, [addToast]);
 
   useEffect(() => {
-    getdebits();
-  }, [getdebits]);
+    getDebits();
+  }, [getDebits]);
 
   return (
     <>
@@ -53,11 +52,8 @@ const Dashboard: React.FC = () => {
         </Link>
       </Header>
       <Container>
-        {debits.map((debit) => (
-          <Link
-            to={`/viewdetaildebit/${debit.client_id}`}
-            key={debit.client_id}
-          >
+        {debits.map((debit, index) => (
+          <Link to={`/viewDebitDetail/${debit.client_id}`} key={index}>
             <Content>
               <main>
                 <strong>{debit.client_name}</strong>

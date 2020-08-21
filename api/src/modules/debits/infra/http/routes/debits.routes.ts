@@ -8,8 +8,10 @@ import DeleteDebitService from '@modules/debits/services/DeleteDebitService';
 const debitsRouter = Router();
 
 debitsRouter.get('/', async (request, response) => {
+  const { client_id } = request.query;
+
   const debitsRepository = new DebitsRepository();
-  const debits = await debitsRepository.findAll();
+  const debits = await debitsRepository.findAll(String(client_id));
 
   return response.json(debits);
 });

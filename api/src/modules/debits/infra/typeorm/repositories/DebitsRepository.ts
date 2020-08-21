@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, IsNull } from 'typeorm';
 import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import ICreateDebitDTO from '@modules/debits/dtos/ICreateDebitDTO';
 import IUpdateDebitDTO from '@modules/debits/dtos/IUpdateDebitDTO';
@@ -71,7 +71,22 @@ class DebitRepository implements IDebitsRepository {
     return debit;
   }
 
-  public async findAll(): Promise<Debit[] | undefined> {
+  public async findAll(
+    client_id: string | undefined,
+  ): Promise<Debit[] | undefined> {
+    if (client_id !== 'undefined') {
+      const debits = await this.ormRepository
+        .createQueryBuilder('debit')
+        .select('debit.client_id', 'client_id')
+        .addSelect('debit.client_name', 'client_name')
+        .addSelect('SUM(debit.amount)', 'total_debits')
+        .where('debit.client_id = :clientId', { clientId: Number(client_id) })
+        .groupBy('debit.client_id')
+        .addGroupBy('debit.client_name')
+        .addOrderBy('debit.client_name')
+        .getRawMany();
+      return debits;
+    }
     const debits = await this.ormRepository
       .createQueryBuilder('debit')
       .select('debit.client_id', 'client_id')

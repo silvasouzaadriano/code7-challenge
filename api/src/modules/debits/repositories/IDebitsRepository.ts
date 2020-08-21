@@ -7,6 +7,6 @@ export default interface IDebitsRepository {
   create(data: ICreateDebitDTO): Promise<Debit>;
   update(data: IUpdateDebitDTO): Promise<Debit>;
   delete(data: IDeleteDebitDTO): Promise<Debit>;
-  findAll(): Promise<Debit[] | undefined>;
+  findAll(client_id: string): Promise<Debit[] | undefined>;
   findByClient(client_id: number): Promise<Debit[] | undefined>;
 }
