@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -6,7 +6,7 @@ import Button from '../../../components/Button';
 
 import { useToast } from '../../../context/ToastContext';
 
-// import Comments from '../Comments';
+import DebitList from '../List';
 
 import { Header, DebitContainer } from './styles';
 
@@ -121,7 +121,7 @@ const ViewDebitDetail: React.FC = () => {
         ))}
       </DebitContainer>
 
-      {/* <Comments bookId={params.id} /> */}
+      <DebitList client_id={params.client_id} />
     </>
   );
 };

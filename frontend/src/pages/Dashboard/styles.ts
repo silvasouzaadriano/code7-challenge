@@ -5,7 +5,7 @@ export const Header = styled.div`
   max-width: 65vw;
   display: flex;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 3.125rem;
 
   button {
     width: 7rem;
@@ -61,7 +61,7 @@ export const Content = styled.div`
   }
 
   aside {
-    margin-top: 5px;
+    margin-top: 0.3125rem;
     display: flex;
     justify-content: space-between;
 
@@ -69,7 +69,7 @@ export const Content = styled.div`
       align-items: left;
       font-size: 1.2rem;
       color: #a8a8b3;
-      margin-top: 5px;
+      margin-top: 0.3125rem;
     }
     svg {
       margin-left: auto;
