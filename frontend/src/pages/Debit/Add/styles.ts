@@ -43,6 +43,14 @@ export const Title = styled.div`
       margin-right: 0.5rem;
     }
   }
+
+  button {
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
 `;
 
 export const Content = styled.div`

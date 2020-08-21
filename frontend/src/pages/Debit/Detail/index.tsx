@@ -30,6 +30,8 @@ const ViewDebitDetail: React.FC = () => {
 
   const history = useHistory();
 
+  const route = 'viewDebitDetail';
+
   // This function get all debits grouped by client_id, client_name with sum of amount
   const getDebitDetail = useCallback(async () => {
     try {
@@ -96,7 +98,11 @@ const ViewDebitDetail: React.FC = () => {
 
       <DebitContainer>
         <div className="buttons">
-          <Button type="button" onClick={() => history.push('/addDebit')}>
+          <Button
+            type="button"
+            onClick={() =>
+              history.push(`/addDebit/${route}/${params.client_id}`)}
+          >
             Nova Dívida
           </Button>
           <Button

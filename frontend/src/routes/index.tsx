@@ -8,7 +8,7 @@ import ViewDebitDetail from '../pages/Debit/Detail';
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={Dashboard} />
-    <Route path="/addDebit" exact component={AddDebit} />
+    <Route path="/addDebit/:route/:client_id" exact component={AddDebit} />
     <Route
       path="/viewDebitDetail/:client_id"
       exact

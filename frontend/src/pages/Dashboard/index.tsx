@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
+
+import Button from '../../components/Button';
 
 import { Container, Header, Content } from './styles';
 
@@ -19,6 +21,10 @@ const Dashboard: React.FC = () => {
 
   // This variable store the toast message method to be used in validations, warnings, etc.
   const { addToast } = useToast();
+
+  const history = useHistory();
+
+  const route = 'home';
 
   // This function get all debits grouped by client_id, client_name with sum of amount
   const getDebits = useCallback(async () => {
@@ -47,9 +53,12 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <Header>
-        <Link to="/addDebit">
-          <button type="button">Nova Dívida</button>
-        </Link>
+        <Button
+          type="button"
+          onClick={() => history.push(`/addDebit/${route}/0`)}
+        >
+          Nova Dívida
+        </Button>
       </Header>
       <Container>
         {debits.map((debit, index) => (

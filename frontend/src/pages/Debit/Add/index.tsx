@@ -5,7 +5,7 @@ import React, {
   useRef,
   ChangeEvent,
 } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
@@ -37,14 +37,46 @@ interface ClientResponse {
   name: string;
 }
 
+interface RouteParam {
+  route: string;
+  client_id: string;
+}
+
 const AddDebit: React.FC = () => {
+  const { params } = useRouteMatch<RouteParam>();
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const [clients, setClients] = useState<ClientResponse[]>([]);
   const [clientId, setClientId] = useState('0');
   const [clientName, setClientName] = useState('');
+  const [route, setRoute] = useState('');
 
   const history = useHistory();
+
+  const getRoute = useCallback(async () => {
+    try {
+      let routeChoosen = '';
+      if (params.route !== 'home') {
+        if (clientId === '0') {
+          setClientId(params.client_id);
+        }
+        routeChoosen = `${params.route}/${clientId}`;
+      }
+
+      setRoute(routeChoosen);
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Error on Load clients!',
+        description:
+          'Occurred an error during load clients. Verify your database connection',
+      });
+    }
+  }, [clientId, params.route, params.client_id, addToast]);
+
+  useEffect(() => {
+    getRoute();
+  }, [getRoute]);
 
   // This function get all clients from API https://jsonplaceholder.typicode.com/
   const getClients = useCallback(async () => {
@@ -128,7 +160,7 @@ const AddDebit: React.FC = () => {
         });
 
         setTimeout(() => {
-          history.push('/');
+          history.push(`/${route}`);
         }, 3000);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -147,7 +179,7 @@ const AddDebit: React.FC = () => {
         });
       }
     },
-    [addToast, clientId, clientName, history],
+    [addToast, clientId, clientName, history, route],
   );
 
   const handleChooseClient = useCallback(
@@ -159,9 +191,10 @@ const AddDebit: React.FC = () => {
       if (clientIdChoosen !== '0' && clientIdChoosen !== 'none') {
         setClientId(clientIdChoosen);
         setClientName(clientNameChoosen);
+        getRoute();
       }
     },
-    [],
+    [getRoute],
   );
 
   return (
@@ -172,10 +205,12 @@ const AddDebit: React.FC = () => {
         </div>
 
         <div>
-          <Link to="/">
-            <FiArrowLeft />
-            Voltar para home
-          </Link>
+          <Button type="button" onClick={() => history.push(`/${route}`)}>
+            <Link to="/">
+              <FiArrowLeft />
+              Voltar
+            </Link>
+          </Button>
         </div>
       </Title>
       <Content>

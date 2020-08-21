@@ -8,7 +8,7 @@ export const Header = styled.div`
   margin-top: 3.125rem;
 
   button {
-    width: 7rem;
+    width: 8rem;
     height: 2.5rem;
     background: #04d361;
     border-radius: 8px;
