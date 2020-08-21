@@ -5,7 +5,7 @@ import { FiChevronRight } from 'react-icons/fi';
 import { Container, Header, Content } from './styles';
 
 import { useToast } from '../../context/ToastContext';
-import api from '../../services/api';
+import { api } from '../../services/api';
 
 interface Debit {
   client_id: number;
@@ -34,9 +34,9 @@ const Dashboard: React.FC = () => {
     } catch (err) {
       addToast({
         type: 'error',
-        title: 'Error on Load debits!',
+        title: 'Erro ao carregar Dívidas!',
         description:
-          'Occurred an error during load debits. Verify your database connection',
+          'Ocorreu um erro durante o carregamento das dívidas. Verifique sua conexão com o banco de dados',
       });
     }
   }, [addToast]);
@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <Header>
-        <Link to="/adddebit">
+        <Link to="/addDebit">
           <button type="button">Nova Dívida</button>
         </Link>
       </Header>

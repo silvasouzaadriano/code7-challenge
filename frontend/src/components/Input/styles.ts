@@ -53,7 +53,7 @@ export const Container = styled.div<ContainerProps>`
 
     &::placeholder {
       font-size: 0.875rem;
-      color: #bce0fd;
+      color: #007BBF;
       font-weight: 700;
     }
   }
