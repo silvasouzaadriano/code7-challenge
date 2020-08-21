@@ -1,11 +1,8 @@
-/* eslint-disable import/no-duplicates */
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { useHistory } from 'react-router-dom';
 
 import { format, utcToZonedTime } from 'date-fns-tz';
-
-import { parseISO } from 'date-fns';
 
 import pt from 'date-fns/locale/pt-BR';
 
@@ -100,13 +97,9 @@ const DebitList: React.FC<ClientDebitProps> = ({ client_id }) => {
           <main>
             <strong>{debit.reason}</strong>
             <span>
-              {format(
-                utcToZonedTime(debit.date, timeZone),
-                "dd'/'MM'/'yyyy HH:mm:ss",
-                {
-                  locale: pt,
-                },
-              )}
+              {format(utcToZonedTime(debit.date, timeZone), "dd'/'MM'/'yyyy", {
+                locale: pt,
+              })}
             </span>
           </main>
           <aside>

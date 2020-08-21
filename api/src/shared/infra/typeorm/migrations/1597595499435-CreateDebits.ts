@@ -27,7 +27,7 @@ export default class CreateDebits1597595499435 implements MigrationInterface {
           },
           {
             name: 'date',
-            type: 'timestamp with time zone',
+            type: 'timestamp',
           },
           {
             name: 'amount',
