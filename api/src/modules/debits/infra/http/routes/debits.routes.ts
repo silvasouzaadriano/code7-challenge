@@ -62,12 +62,14 @@ debitsRouter.put('/:id', async (request, response) => {
 
 debitsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
+  const { client_id }: number = request.query;
 
   const debitsRepository = new DebitsRepository();
   const deleteDebit = new DeleteDebitService(debitsRepository);
 
   const debit = await deleteDebit.execute({
     id,
+    client_id,
   });
 
   return response.json(debit);

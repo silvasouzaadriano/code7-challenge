@@ -83,12 +83,6 @@ export const DebitContainer = styled.div`
       &:hover {
         background: ${shade(0.2, '#04d361')};
       }
-
-      /* @media (max-width: 425px) {
-        width: 65px;
-        height: 15px;
-        font-size: 5px;
-      } */
     }
   }
 
@@ -98,5 +92,38 @@ export const DebitContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+`;
+
+export const DebitDetailModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  padding: 1.25rem;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ebf8ff;
+
+  button {
+    background-color: #04d361;
+    font-size: 0.75rem;
+    width: 3.125rem;
+    height: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 0.375rem;
+    padding: 0.125rem;
+
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: ${shade(0.2, '#04d361')};
+    }
   }
 `;

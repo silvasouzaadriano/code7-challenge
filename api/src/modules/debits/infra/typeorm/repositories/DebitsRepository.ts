@@ -1,4 +1,4 @@
-import { getRepository, Repository, IsNull } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import IDebitsRepository from '@modules/debits/repositories/IDebitsRepository';
 import ICreateDebitDTO from '@modules/debits/dtos/ICreateDebitDTO';
 import IUpdateDebitDTO from '@modules/debits/dtos/IUpdateDebitDTO';
@@ -45,7 +45,7 @@ class DebitRepository implements IDebitsRepository {
     const debit = await this.ormRepository.findOne(id);
 
     if (!debit) {
-      throw new AppError('Debit does not exists!', 404);
+      throw new AppError('Dívida não existe!', 404);
     }
 
     debit.client_id = client_id;
@@ -59,11 +59,29 @@ class DebitRepository implements IDebitsRepository {
     return debit;
   }
 
-  public async delete({ id }: IDeleteDebitDTO): Promise<Debit> {
+  public async delete({ id, client_id }: IDeleteDebitDTO): Promise<Debit> {
+    if (client_id) {
+      const debit = await this.ormRepository.findOne({
+        where: {
+          client_id,
+        },
+      });
+
+      if (!debit) {
+        throw new AppError('Cliente não existe!', 404);
+      }
+
+      await this.ormRepository.delete({
+        client_id,
+      });
+
+      return debit;
+    }
+
     const debit = await this.ormRepository.findOne(id);
 
     if (!debit) {
-      throw new AppError('Debit does not exists!', 404);
+      throw new AppError('Dívida não existe!', 404);
     }
 
     await this.ormRepository.delete(id);
