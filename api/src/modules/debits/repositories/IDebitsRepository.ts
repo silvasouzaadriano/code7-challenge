@@ -9,4 +9,5 @@ export default interface IDebitsRepository {
   delete(data: IDeleteDebitDTO): Promise<Debit>;
   findAll(client_id: string): Promise<Debit[] | undefined>;
   findByClient(client_id: number): Promise<Debit[] | undefined>;
+  findById(id: string): Promise<Debit[] | undefined>;
 }

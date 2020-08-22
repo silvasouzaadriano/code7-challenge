@@ -127,6 +127,16 @@ class DebitRepository implements IDebitsRepository {
 
     return debits;
   }
+
+  public async findById(id: string): Promise<Debit[] | undefined> {
+    const debits = await this.ormRepository.find({
+      where: {
+        id,
+      },
+    });
+
+    return debits;
+  }
 }
 
 export default DebitRepository;
