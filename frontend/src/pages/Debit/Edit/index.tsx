@@ -147,8 +147,14 @@ const EditDebit: React.FC = () => {
           reason: Yup.string()
             .required('Motivo da dívida é obrigatório')
             .max(50, 'Motivo excedeu 50 characters'),
-          amount: Yup.number().required('Valor é obrigatório'),
-          date: Yup.date().required('Data é obrigatória'),
+          amount: Yup.number()
+            .typeError('Valor é obrigatório. Ex: 100.55')
+            .min(1, 'Valor da dívida tem que ser maior que zero. Ex: 100,55')
+            .positive('Valor tem que ser maior que zero. Ex: 100.55')
+            .required('Valor é obrigatório'),
+          date: Yup.date()
+            .typeError('Data é obrigatória. Ex: 21/08/2020')
+            .required('Data é obrigatória'),
         });
 
         await schema.validate(data, {
@@ -185,7 +191,7 @@ const EditDebit: React.FC = () => {
 
         setTimeout(() => {
           history.push(`/viewDebitDetail/${clientId}`);
-        }, 3000);
+        }, 1500);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -254,15 +260,22 @@ const EditDebit: React.FC = () => {
               </option>
             ))}
           </select>
-          <Input name="reason" type="text" placeholder="Informe um motivo" />
+          <Input
+            name="reason"
+            type="text"
+            placeholder="Digite um motivo para dívida. Exemplo: Dívida do Cartão de Crédito"
+          />
           <Input
             name="amount"
             type="number"
             step="any"
-            min="0"
-            placeholder="Informe um valor"
+            placeholder="Digite um valor para a dívida. Exemplo: 100,55"
           />
-          <Input name="date" type="date" placeholder="Informe uma data" />
+          <Input
+            name="date"
+            type="date"
+            placeholder="Digite uma data para a dívida no formato:"
+          />
 
           <Button type="submit">Alterar</Button>
         </Form>

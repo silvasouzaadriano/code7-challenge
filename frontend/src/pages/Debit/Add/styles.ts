@@ -77,6 +77,21 @@ export const Content = styled.div`
     }
   }
 
+  input {
+    color: #007bbf;
+    font-weight: 700;
+  }
+
+  input[type='date']:not(.has-value),
+  input[type='date']:before {
+    content: attr(placeholder) !important;
+    margin-right: 0.5rem;
+  }
+
+  input[type='date']:focus:before {
+    content: '' !important;
+  }
+
   button {
     background-color: #04d361;
     transition: background-color 0.2s;
