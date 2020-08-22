@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import AddDebit from '../pages/Debit/Add';
 import ViewDebitDetail from '../pages/Debit/Detail';
+import EditDebit from '../pages/Debit/Edit';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -14,6 +15,7 @@ const Routes: React.FC = () => (
       exact
       component={ViewDebitDetail}
     />
+    <Route path="/editDebit/:id" exact component={EditDebit} />
   </Switch>
 );
 

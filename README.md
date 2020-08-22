@@ -1,19 +1,18 @@
 <h1 align="center">
-    Code7 challenger
+    Code7 challenge
 </h1>
 
 
 ## Concepts
 
 <h4>
-On this challenger was implemented:
+For this project was implemented:
 
     1) An API REST where is possible to
     
-        a) Create, update and authenticate users
-        b) Create, update, list and delete client debits.
+        a) Create, update, list and delete client debits.
 
-    2) A Web application to manage client debits, where is possible after the the user authentication:
+    2) A Web application to manage client debits, where is possible:
 
         a) Visualize a list of client with debits
         b) Visualize a list the debits per clients
@@ -23,16 +22,34 @@ On this challenger was implemented:
 </h4>
 
 
-## Main Technologies used
+## 🚀 Main Technologies used
 
 ### BACK-END
 -   [Node.js](https://nodejs.org/en/)
 -   [Express](https://expressjs.com/)
+-   [TypeORM](https://typeorm.io/#/)
+-   [PostgreSQL](https://www.postgresql.org/)
+-   [Docker](https://www.docker.com/docker-community)
 -   [VS Code](https://code.visualstudio.com/) with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 
 
 ### FRONT-END
--   [ReactJS](https://reactjs.org/)
+
+
 -   [Create React App Configuration Override](https://github.com/sharegate/craco)
+-   [ReactJS](https://reactjs.org/)
+-   [TypeScript](https://www.typescriptlang.org/docs/handbook/react.html)
+-   [React Router DOM](https://www.npmjs.com/package/react-router-dom)
+-   [React Hooks](https://reactjs.org/docs/hooks-reference.html)
+-   [React Icons](http://react-icons.github.io/react-icons/)
+-   [React Spring](https://www.react-spring.io/)
+-   [Styled Components](https://www.styled-components.com/)
+-   [Axios](https://github.com/axios/axios)
+-   [History](https://www.npmjs.com/package/history)
+-   [Polished](https://polished.js.org/)
+-   [Date Fns/TZ](https://date-fns.org/)
+-   [Unform](https://github.com/Rocketseat/unform)
+-   [Uuid](https://www.npmjs.com/package/uuid)
+-   [Yup](https://github.com/jquense/yup)
 -   [VS Code](https://code.visualstudio.com/) with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 
@@ -44,10 +61,10 @@ To clone and run this application, you'll need [Docker](https://docs.docker.com/
 ### Install Backend
 ```bash
 # Clone this repository
-$ git clone https://github.com/silvasouzaadriano/code7-challenger.git
+$ git clone https://github.com/silvasouzaadriano/code7-challenge.git
 
 # Go into the repository
-$ cd code7-challenger/api
+$ cd code7-challenge/api
 
 # Install dependencies
 $ yarn install OR npm run install
@@ -59,14 +76,14 @@ $ docker run --name code7_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=co
 yarn typeorm migration:run OR npx typeorm migration:run
 
 # Run the API
-$ yarn start OR npm run start
+$ yarn dev:server OR npm run dev:server
 ```
 
 ### Install Frontend
 ```bash
 
 # Go into the front path
-$ cd code7-challenger/frontend
+$ cd code7-challenge/frontend
 
 # Install dependencies
 $ yarn install OR npm run install

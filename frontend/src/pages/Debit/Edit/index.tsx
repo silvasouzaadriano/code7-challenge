@@ -12,6 +12,8 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
+import { format, utcToZonedTime } from 'date-fns-tz';
+import pt from 'date-fns/locale/pt-BR';
 import { useToast } from '../../../context/ToastContext';
 
 import Input from '../../../components/Input';
@@ -23,6 +25,17 @@ import { Title, Content } from './styles';
 import getValidationErrors from '../../../utils/getValidationErrors';
 
 import { api, apiClients } from '../../../services/api';
+
+interface Debit {
+  id: string;
+  client_id: number;
+  client_name: string;
+  reason: string;
+  date: Date;
+  amount: number;
+  created_at: Date;
+  updated_at: Date;
+}
 
 interface NewDebitFormData {
   client_id: number;
@@ -41,41 +54,58 @@ interface DebitIdParam {
   id: string;
 }
 
+const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+
 const EditDebit: React.FC = () => {
-  const { params } = useRouteMatch<ClientIdParam>();
+  const { params } = useRouteMatch<DebitIdParam>();
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const [clients, setClients] = useState<ClientResponse[]>([]);
   const [clientId, setClientId] = useState('0');
   const [clientName, setClientName] = useState('');
-  const [route, setRoute] = useState('');
 
   const history = useHistory();
 
   // This function get the debit details based on s grouped by client_id, client_name with sum of amount
   const getDebitDetail = useCallback(async () => {
     try {
-      api.get(`/debits/${client_id}`).then((response) => {
+      api.get(`/debits/id/${params.id}`).then((response) => {
         const data = response.data.map((d: Debit[]) => ({
           ...d,
         }));
 
-        setDebits(data);
+        setClientId(String(data[0].client_id));
+        setClientName(data[0].client_name);
+
+        const dateFormatted = format(
+          utcToZonedTime(data[0].date, timeZone),
+          "yyyy'-'MM'-'dd",
+          {
+            locale: pt,
+          },
+        );
+
+        formRef.current?.setData({ reason: data[0].reason });
+        formRef.current?.setData({ amount: data[0].amount });
+        formRef.current?.setData({ date: dateFormatted });
       });
     } catch (err) {
       addToast({
         type: 'error',
-        title: 'Erro ao carregar Dívidas!',
+        title: 'Erro ao carregar Dívida!',
         description:
-          'Ocorreu um erro durante o carregamento das dívidas. Verifique sua conexão com o banco de dados',
+          'Ocorreu um erro durante o carregamento da dívida. Verifique sua conexão com o banco de dados',
       });
     }
-  }, [params.client_id, addToast]);
+  }, [params.id, addToast]);
+
+  useEffect(() => {
+    getDebitDetail();
+  }, [getDebitDetail]);
 
   // This function get all clients from API https://jsonplaceholder.typicode.com/
   const getClients = useCallback(async () => {
     try {
-      // const debitsList: Debit[] = [];
       apiClients.get<ClientResponse[]>('/users').then((response) => {
         const data = response.data.map((client) => ({
           id: client.id,
@@ -128,7 +158,7 @@ const EditDebit: React.FC = () => {
         /**
          * Begin
          *
-         * After validation,  a new debit will be created
+         * After validation, the debit will be updated
          */
 
         const updateDebit = {
@@ -139,22 +169,22 @@ const EditDebit: React.FC = () => {
           amount: data.amount,
         };
 
-        await api.put('debits', updateDebit);
+        await api.put(`debits/${params.id}`, updateDebit);
 
         /**
          * End
          *
-         * After validation,  a new debit will be created
+         * After validation,  the debit will be updated
          */
 
         addToast({
           type: 'success',
-          title: 'Nova Dívida!',
-          description: 'A dívida foi criada com sucesso.',
+          title: 'Alteração de Dívida!',
+          description: 'A dívida foi alterada com sucesso.',
         });
 
         setTimeout(() => {
-          history.push(`/${route}`);
+          history.push(`/viewDebitDetail/${clientId}`);
         }, 3000);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -167,13 +197,13 @@ const EditDebit: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro durante criação da Dívida!',
+          title: 'Erro durante a alteração da da Dívida!',
           description:
-            'Ocorreu um erro durante a criação da dívida, por favor preencha os campos obrigatórios.',
+            'Ocorreu um erro durante a alteração da dívida, por favor preencha os campos obrigatórios.',
         });
       }
     },
-    [addToast, clientId, clientName, history, route],
+    [addToast, params.id, clientId, clientName, history],
   );
 
   const handleChooseClient = useCallback(
@@ -185,21 +215,23 @@ const EditDebit: React.FC = () => {
       if (clientIdChoosen !== '0' && clientIdChoosen !== 'none') {
         setClientId(clientIdChoosen);
         setClientName(clientNameChoosen);
-        getRoute();
       }
     },
-    [getRoute],
+    [],
   );
 
   return (
     <>
       <Title>
         <div>
-          <h1>Nova Dívida</h1>
+          <h1>Alteração de Dívida</h1>
         </div>
 
         <div>
-          <Button type="button" onClick={() => history.push(`/${route}`)}>
+          <Button
+            type="button"
+            onClick={() => history.push(`/viewDebitDetail/${clientId}`)}
+          >
             <Link to="/">
               <FiArrowLeft />
               Voltar
@@ -209,7 +241,12 @@ const EditDebit: React.FC = () => {
       </Title>
       <Content>
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <select name="client" id="client" onChange={handleChooseClient}>
+          <select
+            name="client"
+            id="client"
+            onChange={handleChooseClient}
+            value={clientId}
+          >
             <option value="none">Escolha um cliente</option>
             {clients.map((client) => (
               <option key={client.id} value={client.id}>
@@ -227,7 +264,7 @@ const EditDebit: React.FC = () => {
           />
           <Input name="date" type="date" placeholder="Informe uma data" />
 
-          <Button type="submit">SALVAR</Button>
+          <Button type="submit">Alterar</Button>
         </Form>
       </Content>
     </>
