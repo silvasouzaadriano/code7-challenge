@@ -218,7 +218,7 @@ const ViewDebitDetail: React.FC = () => {
         </div>
         {debitDetail.map((debit, index) => (
           <div className="head" key={index}>
-            <div className="category">
+            <div className="client">
               <span>Cliente </span>
               <p>{debit.client_name}</p>
             </div>
