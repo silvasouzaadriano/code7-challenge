@@ -42,8 +42,6 @@ interface RouteParam {
   client_id: string;
 }
 
-const minDate = new Date(1900, 1, 1);
-
 const AddDebit: React.FC = () => {
   const { params } = useRouteMatch<RouteParam>();
   const formRef = useRef<FormHandles>(null);
