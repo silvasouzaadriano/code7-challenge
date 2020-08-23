@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { shade } from 'polished';
+import { shade, lighten } from 'polished';
 
 export const Title = styled.div`
   max-width: 65rem;
@@ -61,7 +61,7 @@ export const Content = styled.div`
     background: #f5f5f5;
     padding: 1rem;
     width: 100%;
-    color: #007bbf;
+    color: ${lighten(0.5, '#020202')};
     font-weight: 700;
     border: 0;
 
@@ -78,12 +78,13 @@ export const Content = styled.div`
   }
 
   input {
-    color: #007bbf;
+    color: ${lighten(0.5, '#020202')};
+    font-size: 0.875rem;
     font-weight: 700;
   }
 
-  input[type='date']:not(.has-value),
-  input[type='date']:before {
+  input[type='date']:not(.has-value):before {
+    color: ${lighten(0.5, '#020202')};
     content: attr(placeholder) !important;
     margin-right: 0.5rem;
   }

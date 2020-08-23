@@ -205,8 +205,7 @@ const ViewDebitDetail: React.FC = () => {
           <Button
             type="button"
             onClick={() =>
-              history.push(`/addDebit/${route}/${params.client_id}`)
-            }
+              history.push(`/addDebit/${route}/${params.client_id}`)}
           >
             Nova Dívida
           </Button>
@@ -240,7 +239,7 @@ const ViewDebitDetail: React.FC = () => {
 
       {modalDebitIsOpen && (
         <DebitDetailModal>
-          <h3>Confirma a exclusão do dívida?</h3>
+          <h3>Confirma a exclusão da dívida?</h3>
           <main>
             <Button type="button" onClick={handleDebitDelete}>
               Excluir

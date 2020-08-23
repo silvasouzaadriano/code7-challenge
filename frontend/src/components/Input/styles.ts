@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { lighten } from 'polished';
 
 import Tooltip from '../Tooltip';
 
@@ -53,7 +54,7 @@ export const Container = styled.div<ContainerProps>`
 
     &::placeholder {
       font-size: 0.875rem;
-      color: #007BBF;
+      color: ${lighten(0.5, '#020202')};
       font-weight: 700;
     }
   }

@@ -154,6 +154,7 @@ const EditDebit: React.FC = () => {
             .required('Valor é obrigatório'),
           date: Yup.date()
             .typeError('Data é obrigatória. Ex: 21/08/2020')
+            .min('2000-01-01', 'Data mínima é 01/01/2000')
             .required('Data é obrigatória'),
         });
 

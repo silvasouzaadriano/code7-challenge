@@ -42,6 +42,8 @@ interface RouteParam {
   client_id: string;
 }
 
+const minDate = new Date(1900, 1, 1);
+
 const AddDebit: React.FC = () => {
   const { params } = useRouteMatch<RouteParam>();
   const formRef = useRef<FormHandles>(null);
@@ -134,6 +136,7 @@ const AddDebit: React.FC = () => {
             .required('Valor é obrigatório'),
           date: Yup.date()
             .typeError('Data é obrigatória. Ex: 21/08/2020')
+            .min('2000-01-01', 'Data mínima é 01/01/2000')
             .required('Data é obrigatória'),
         });
 
@@ -213,7 +216,6 @@ const AddDebit: React.FC = () => {
         <div>
           <h1>Nova Dívida</h1>
         </div>
-
         <div>
           <Button type="button" onClick={() => history.push(`/${route}`)}>
             <Link to="/">
@@ -244,6 +246,7 @@ const AddDebit: React.FC = () => {
             step="any"
             placeholder="Digite um valor para a dívida. Exemplo: 100,55"
           />
+
           <Input
             name="date"
             type="date"
