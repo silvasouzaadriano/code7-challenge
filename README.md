@@ -61,16 +61,16 @@ To clone and run this application, you'll need [Docker](https://docs.docker.com/
 ### Install Backend
 ```bash
 # Clone this repository
-$ git clone https://github.com/silvasouzaadriano/code7-challenge.git
+$ git clone https://github.com/silvasouzaadriano/edebits.git
 
 # Go into the repository
-$ cd code7-challenge/api
+$ cd edebits/api
 
 # Install dependencies
 $ yarn install OR npm run install
 
 # Created Postgres Docker container and the database code7
-$ docker run --name code7_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=code7 -p 5432:5432 -d postgres
+$ docker run --name edebits_postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=edebits -p 5432:5432 -d postgres
 
 # Run the Migrations for create the tables
 yarn typeorm migration:run OR npx typeorm migration:run
@@ -83,7 +83,7 @@ $ yarn dev:server OR npm run dev:server
 ```bash
 
 # Go into the front path
-$ cd code7-challenge/frontend
+$ cd edebits/frontend
 
 # Install dependencies
 $ yarn install OR npm run install
