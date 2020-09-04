@@ -1,5 +1,5 @@
 <h1 align="center">
-    Code7 challenge
+    eDebits
 </h1>
 
 
